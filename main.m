@@ -14,7 +14,7 @@ W_rated = 180; % rad/s
 V_lin = 16; % m/s
 
 %% SISO controller
-SISO_ss = FWT(1,1); % Beta to Omega
+SISO_ss = -FWT(1,1); % Beta to Omega
 figure(1);
 subplot(1,2,1); margin(SISO_ss);
 subplot(1,2,2); pzmap(SISO_ss);
