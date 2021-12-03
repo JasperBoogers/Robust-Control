@@ -24,20 +24,32 @@ subplot(1,2,1); margin(G);
 subplot(1,2,2); pzmap(G);
 
 % controller
-K = pid(0,-0.265,0, 'InputName', 'Error (rad/s)', 'OutputName', 'Beta (deg)');
-L = feedback(G*K,1);
+wn=0.199;
+K1 = -0.39*tf([25,1,1],1); % complex zero at 0.2 rad for increased phase
+K2 = tf(1,[1,0]); % integrator for reference tracking
+K3 = tf(1, [1,1]); % real pole for noise rejection
+notch = tf([(1/(wn))^2, 1/(wn*10), 1], [(1/(wn))^2, 1/(wn*25), 1]);
+
+K = pid(K1*K2*K3);
+K.InputName = 'Error (rad/s)';
+K.OutputName = 'Beta (deg)';
+L = K*G;
+CL = feedback(L, 1);
 S = 1/(1+L);
 T = L/(1+L);
 
 figure(2);
-subplot(2,2,1); bode(L); title('Controller TF');
-subplot(2,2,2); bodemag(S); title('Sensitivity');
-subplot(2,2,3); bodemag(T); title('Complementary Sensitivity');
-subplot(2,2,4); step(L); stepinfo(L)
+subplot(2,2,1); bode(CL); title('Loop TF');
+subplot(2,2,2); bodemag(S); title('Sensitivity'); xlim([1e-3 1e3]);
+subplot(2,2,3); bodemag(T); title('Complementary Sensitivity'); xlim([1e-3 1e3]);
+subplot(2,2,4); step(CL); title('Step Response of Closed Loop System'); stepinfo(CL)
+
+[GM, PM, Wcg, Wcross] = margin(L);
+
 
 % put controller in MIMO system
 L_mimo = feedback(FWT, K, [1], [1], -1);
-figure(3); step(L_mimo(1,3));
+figure(3); step(L_mimo(1,3)); title('Disturbance Rejection of step response');
 
 %% Mixed Sensitivity Design
 
@@ -45,7 +57,7 @@ figure(3); step(L_mimo(1,3));
 MIMO_ss = minreal(tf(FWT(1:2,1:2)));
 
 % calculate RGA
-RGA = MIMO_ss.*inv(MIMO_ss);
+RGA = MIMO_ss.*transpose(inv(MIMO_ss));
 [U,S,V] = svd(evalfr(RGA, 0.8*pi));
 
 MIMO_zeros = tzero(MIMO_ss);
