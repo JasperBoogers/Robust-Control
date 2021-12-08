@@ -1,4 +1,6 @@
 function latex_bode(sys, plot_title)
+set(groot,'defaulttextinterpreter','latex');  
+set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
 bode(sys)
 grid on
 xlabel('Frequency','interpreter', 'latex')
