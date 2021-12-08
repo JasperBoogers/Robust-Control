@@ -3,7 +3,7 @@ set(groot,'defaulttextinterpreter','latex');
 set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
 step(sys);
 warning off
-title(append('\textit{Step plot of ',plot_title,'}'),'interpreter', 'latex');
+title(append('\textbf{Step plot of ',plot_title,'}'),'interpreter', 'latex');
 warning on
 xlabel('Time','interpreter', 'latex');
 ylabel('Amplitude','interpreter', 'latex');
