@@ -15,7 +15,7 @@ V_lin = 16; % m/s
 s = tf('s');
 
 %% Matrix setup
-G = minreal(FWT);
+G = minreal(tf(FWT(1,1:2)));
 
 w_hpf = 1;
 w_lpf= 1e-2;
@@ -30,3 +30,8 @@ A = 1e-4;
 Wu = [LPF, 0; 0 HPF];
 Wp = tf([1/M, w_b], [1, w_b*A]);
 P = [Wp Wp*G; zeros(2) Wu; 1 -G];
+
+% H-infinity norm synthesis
+[K, CL, gamma] = hinfsyn(P, 2, 1);
+L_ref = feedback(MIMO_ss, K, [1,2], [1,2], -1);
+L_dist = feedback(FWT, K, [1,2], [1,2], -1);
