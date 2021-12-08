@@ -1,10 +1,10 @@
-function [] = latex_bodemag(ss,tit)
+function [] = latex_bodemag(sys,plot_title)
 set(groot,'defaulttextinterpreter','latex');  
 set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
-bodemag(ss)
+bodemag(sys)
 grid on
 setoptions(gcr,'MagUnits','abs', 'MagScale', 'log');
-title(tit,'interpreter', 'latex')
+title('Bode plot of '+plot_title,'interpreter', 'latex')
 xlabel('Frequency','interpreter', 'latex')
 ylabel('Magnitude','interpreter', 'latex')
 end
