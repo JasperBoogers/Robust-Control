@@ -4,7 +4,9 @@ set(groot, 'defaultAxesTickLabelInterpreter','latex');
 bodemag(sys)
 grid on
 setoptions(gcr,'MagUnits','abs', 'MagScale', 'log');
-title(append('\textbf{Bode plot of ',plot_title, '}'),'interpreter', 'latex')
+warning off
+title(append('\textbf{Bode plot of ',plot_title, '}'),'interpreter', 'latex');
+warning on
 xlabel('Frequency','interpreter', 'latex')
 ylabel('Magnitude','interpreter', 'latex')
 hs = findall(gcf, 'type', 'axes');
