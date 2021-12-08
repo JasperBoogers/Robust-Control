@@ -38,15 +38,13 @@ CL = feedback(L, 1);
 S = 1/(1+L);
 T = L/(1+L);
 
-figure(2);
-subplot(2,2,1); bode(CL); title('Loop TF');
-subplot(2,2,2); bodemag(S); title('Sensitivity'); xlim([1e-3 1e3]);
-subplot(2,2,3); bodemag(T); title('Complementary Sensitivity'); xlim([1e-3 1e3]);
-subplot(2,2,4); step(CL); title('Step Response of Closed Loop System'); stepinfo(CL)
+figure(); latex_bode(CL, 'the loop transfer function');
+figure(); latex_bodemag(S, 'the Censitivity');
+figure(); latex_bodemag(T, 'the Complementary Sensitivity'); xlim([1e-3,1e3]);  
+figure(); latex_step(CL, 'Closed Loop System'); stepinfo(CL)
 
 [GM, PM, Wcg, Wcross] = margin(L);
 
-
 % put controller in MIMO system
 L_mimo = feedback(FWT, K, [1], [1], -1);
-figure(3); step(L_mimo(1,3)); title('Disturbance Rejection of step response');
+figure(); latex_step(L_mimo(1,3), 'Disturbance Rejection');
