@@ -51,5 +51,5 @@ saveas(gcf, 'Figures/ch1_step.eps',  'epsc')
 
 % put controller in MIMO system
 L_mimo = feedback(FWT, K, [1], [1], -1);
-figure(); latex_step(L_mimo(1,3), 'Disturbance Rejection');
+figure(); latex_step(L_mimo(1,3), 'Disturbance Rejection of V');
 saveas(gcf, 'Figures/ch1_disturbance.eps',  'epsc')
