@@ -46,9 +46,8 @@ function latex_lsim(sys,u,t,grid_format,u_2)
             xlabel('Time (seconds)')
         end
         outputName = sys.OutputName(i_plot);
-        outputName = replace(outputName,"tau_e","$\tau_e$");
-        outputName = replace(outputName,"Omega","$\omega_r$");
-        outputName = replace(outputName,"Beta","$\beta$");
+        
+        outputName = latex_mathChars(outputName);
         
 
         ylabel(append(labl,outputName),'interpreter', 'latex', "Color", colr);

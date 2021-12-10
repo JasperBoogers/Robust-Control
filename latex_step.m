@@ -1,9 +1,7 @@
 function [] = latex_step(sys,plot_title)
 set(groot,'defaulttextinterpreter','latex');  
 set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
-sys.OutputName = replace(sys.OutputName,"Omega","$\omega$");
-sys.OutputName = replace(sys.OutputName,"tau_e","$\tau_e$");
-sys.OutputName = replace(sys.OutputName,"Beta","$\beta$");
+sys.OutputName = latex_mathChars(sys.OutputName);
 
 step(sys);
 warning off
