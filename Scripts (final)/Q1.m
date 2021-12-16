@@ -44,17 +44,22 @@ T = L/(1+L);
 
 % make figures
 figure(); latex_bode(CL, 'the loop transfer function');
-saveas(gcf, 'Figures/ch1_loop_tf.eps',  'epsc')
-figure(); latex_bodemag(S, 'the Sensitivity');
+set(gcf,'renderer','painters');
+saveas(gcf, 'Figures/ch1_loop_tf.eps', 'epsc')
+figure(); latex_bodemag(S, 'the Sensitivity', 'blue');
+set(gcf,'renderer','painters');
 saveas(gcf, 'Figures/ch1_sens.eps',  'epsc')
-figure(); latex_bodemag(T, 'the Complementary Sensitivity'); xlim([1e-3,1e3]);
+figure(); latex_bodemag(T, 'the Complementary Sensitivity','blue'); xlim([1e-3,1e3]);
+set(gcf,'renderer','painters');
 saveas(gcf, 'Figures/ch1_comp_sens.eps',  'epsc')
-figure(); latex_step(CL, 'Closed Loop System'); stepinfo(CL)
+figure(); latex_step(CL, 'Closed Loop System', 60); stepinfo(CL)
+set(gcf,'renderer','painters');
 saveas(gcf, 'Figures/ch1_step.eps',  'epsc')
 
 [GM, PM, Wcg, Wcross] = margin(L);
 
 % put controller in MIMO system and perform step response on 3rd input channel
 L_mimo = feedback(FWT, K, [1], [1], -1);
-figure(); latex_step(L_mimo(1,3), 'Disturbance Rejection of V');
+figure(); latex_step(L_mimo(1,3), 'Disturbance Rejection of V',400);
+set(gcf,'renderer','painters');
 saveas(gcf, 'Figures/ch1_disturbance.eps',  'epsc')
