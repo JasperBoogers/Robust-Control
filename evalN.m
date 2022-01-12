@@ -30,7 +30,7 @@ NPblk=[2 4]; % 2 inputs to 4 outputs, full perturbation
 muNP = mubnds(:,1);  %upper bound
 [muNPinf, muNPw] = norm(muNP, inf);
 
-fprintf("Nominal performance: %s (%f) \n", mat2str(NP<1), NP)
+fprintf("Nominal performance: %s (%f) \n", mat2str(muNPinf<1), NP)
 
 % RS
 N_11 = Nf(1:4,1:4);
