@@ -2,6 +2,9 @@ function [outputArg1,outputArg2] = evalN(N)
 omega = logspace(-3,3,150);
 Nf = frd(N, omega);
 
+if all(pole(N)<0)
+    disp("all tf's are individually stable --> NS");
+end
 
 
 % NS
@@ -21,6 +24,9 @@ NP = max(max(sigma(N_22)));
 %method3: structured singular value
 NPblk=[2 4]; % 2 inputs to 4 outputs, full perturbation
 [mubnds, ~] = mussv(N_22, NPblk, 'c');
+
+%mussvextract(mubnds)
+
 muNP = mubnds(:,1);  %upper bound
 [muNPinf, muNPw] = norm(muNP, inf);
 
