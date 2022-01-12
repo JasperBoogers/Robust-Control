@@ -10,7 +10,14 @@ warning on
 xlabel('Frequency','interpreter', 'latex')
 ylabel('Magnitude','interpreter', 'latex')
 hs = findall(gcf, 'type', 'axes');
-ha = get(hs(3), 'title');
-ha.String = ''; % remove the subtitle "From: u1 To: y1"
+% ha = get(hs(3), 'title');
+% ha.String = ''; % remove the subtitle "From: u1 To: y1"
+
+for i_ax = 1:numel(hs)
+    hs(i_ax).YLabel.Interpreter = 'latex';
+    ha = get(hs(i_ax), 'title');
+    ha.Interpreter = 'latex';
 end
 
+
+end
