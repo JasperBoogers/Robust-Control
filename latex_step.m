@@ -1,12 +1,16 @@
-function [] = latex_step(sys,plot_title, t_lim)
+function [] = latex_step(sys,plot_title, t_lim, linestyle)
 set(groot,'defaulttextinterpreter','latex');  
 set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
 sys.OutputName = latex_mathChars(sys.OutputName);
 
-step(sys, t_lim);
+step(sys, t_lim,linestyle);
 grid on
 warning off
-title(append('\textbf{Step plot of ',plot_title,'}'),'interpreter', 'latex');
+if length(plot_title)>0
+    title(append('\textbf{Step plot of ',plot_title,'}'),'interpreter', 'latex');
+else
+    title("");
+end
 warning on
 xlabel('Time','interpreter', 'latex');
 ylabel('Amplitude','interpreter', 'latex');
